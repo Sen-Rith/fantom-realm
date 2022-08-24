@@ -83,7 +83,11 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="item in topTokens" :key="item.name">
+                  <tr
+                    v-for="item in topTokens"
+                    :key="item.name"
+                    @click="navigateTo(`token/${item.id}`)"
+                  >
                     <td>
                       <v-avatar class="my-2 mr-4">
                         <v-img
