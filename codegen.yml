@@ -1,0 +1,17 @@
+schema:
+  - https://api.thegraph.com/subgraphs/name/eerieeight/spookyswap
+documents:
+  - ./graphql/queries.ts
+generates:
+  ./generated/schema.ts:
+    plugins:
+      - typescript
+    config:
+      enumsAsTypes: true
+  ./generated/operations.ts:
+    preset: import-types
+    presetConfig:
+      typesPath: ./schema
+      importTypesNamespace: SchemaTypes
+    plugins:
+      - typescript-operations

@@ -1,0 +1,27 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^2.11.6",
+    "@graphql-codegen/import-types-preset": "^2.2.3",
+    "@graphql-codegen/typescript-operations": "^2.5.3",
+    "@types/lodash": "^4.14.184",
+    "nuxt": "3.0.0-rc.8"
+  },
+  "dependencies": {
+    "axios": "^0.27.2",
+    "cross-fetch": "^3.1.5",
+    "graphql": "^16.6.0",
+    "graphql-request": "^4.3.0",
+    "lodash": "^4.17.21",
+    "mdi": "^2.2.43",
+    "sass": "^1.54.4",
+    "smartinterval": "^1.0.1",
+    "vuetify": "^3.0.0-beta.8"
+  }
+}

@@ -1,0 +1,9 @@
+@font-face {
+    font-family: "Minecraft";
+    src: local("Minecraft"),
+     url(~/assets/Minecraft.ttf) format("truetype");
+}
+
+html {
+    font-family: "Minecraft";
+}
