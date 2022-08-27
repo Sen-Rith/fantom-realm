@@ -89,3 +89,36 @@ export const SEARCH_TOKENS = gql`
     }
   }
 `;
+
+export const GET_TOKEN = gql`
+  query Token($id: ID!) {
+    token(id: $id) {
+      id
+      name
+      symbol
+      tokenDayData(first: 2, orderBy: date, orderDirection: desc) {
+        date
+        totalLiquidityUSD
+        dailyVolumeUSD
+        priceUSD
+        dailyTxns
+      }
+      pairQuote(first: 10, orderBy: volumeUSD, orderDirection: desc) {
+        reserveUSD
+        token0 {
+          id
+          name
+          symbol
+        }
+        token1 {
+          id
+          name
+          symbol
+        }
+        pairHourData(first: 24, orderBy: hourStartUnix, orderDirection: desc) {
+          hourlyVolumeUSD
+        }
+      }
+    }
+  }
+`;

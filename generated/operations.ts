@@ -27,3 +27,10 @@ export type SearchTokensQueryVariables = SchemaTypes.Exact<{
 
 
 export type SearchTokensQuery = { __typename?: 'Query', asName: Array<{ __typename?: 'Token', id: string, name: string, symbol: string }>, asSymbol: Array<{ __typename?: 'Token', id: string, name: string, symbol: string }>, asAddress: Array<{ __typename?: 'Token', id: string, name: string, symbol: string }> };
+
+export type TokenQueryVariables = SchemaTypes.Exact<{
+  id: SchemaTypes.Scalars['ID'];
+}>;
+
+
+export type TokenQuery = { __typename?: 'Query', token?: { __typename?: 'Token', id: string, name: string, symbol: string, tokenDayData: Array<{ __typename?: 'TokenDayData', date: number, totalLiquidityUSD: any, dailyVolumeUSD: any, priceUSD: any, dailyTxns: any }>, pairQuote: Array<{ __typename?: 'Pair', reserveUSD: any, token0: { __typename?: 'Token', id: string, name: string, symbol: string }, token1: { __typename?: 'Token', id: string, name: string, symbol: string }, pairHourData: Array<{ __typename?: 'PairHourData', hourlyVolumeUSD: any }> }> } | null };

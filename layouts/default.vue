@@ -11,7 +11,7 @@
           class="rounded-pill"
           href="https://www.coingecko.com/en/coins/fantom"
           target="_blank"
-          :title="Number(ftmPrice).toLocaleString('en-US') + ' $'"
+          :title="'$ ' + Number(ftmPrice).toLocaleString('en-US')"
         >
         </v-card>
       </v-col>
