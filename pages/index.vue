@@ -61,7 +61,20 @@
             </v-card>
             <v-card
               ><v-card-item>
-                <v-card-title>Top 10 active tokens today</v-card-title>
+                <v-card-title
+                  >Top 10 active tokens today
+                  <v-tooltip location="bottom">
+                    <template v-slot:activator="{ props }">
+                      <v-icon v-bind="props" size="x-small">
+                        mdi-information-outline
+                      </v-icon>
+                    </template>
+                    <span
+                      >Tokens are ranked by their daily volume from different
+                      exchanges like SpookySwap, SpiritSwap, etc.</span
+                    >
+                  </v-tooltip></v-card-title
+                >
                 <v-card-subtitle
                   >Top 10 active tokens today on Fantom Opera
                   Network</v-card-subtitle

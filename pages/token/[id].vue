@@ -49,7 +49,7 @@
             ></iframe
           ></v-col>
           <v-col>
-            <v-row v-if="!pending">
+            <v-row>
               <v-col cols="12" md="4">
                 <v-card>
                   <v-card-text>Total Liquidity</v-card-text>
@@ -165,12 +165,6 @@
                 </v-card>
               </v-col>
             </v-row>
-            <v-row v-else class="ma-5 justify-center">
-              <v-progress-circular
-                indeterminate
-                color="primary"
-              ></v-progress-circular>
-            </v-row>
             <iframe
               loading="lazy"
               class="my-4"
@@ -215,7 +209,7 @@
                   <th class="text-left">Volume (24hrs)</th>
                 </tr>
               </thead>
-              <tbody v-if="!pending">
+              <tbody>
                 <tr v-for="(item, index) in data.pairQuote" :key="index">
                   <td>
                     <v-avatar class="my-2">
@@ -253,13 +247,8 @@
                 </tr>
               </tbody>
             </v-table>
-            <div v-if="pending" class="ma-5 d-flex justify-center">
-              <v-progress-circular
-                indeterminate
-                color="primary"
-              ></v-progress-circular>
-            </div> </v-card
-        ></v-row>
+          </v-card></v-row
+        >
       </v-container>
       <v-container
         v-if="$vuetify.display.mobile"
@@ -288,7 +277,7 @@ const token = ref(route.params.id);
 
 const src = `https://kek.tools/t/${token.value}/chart?accent=BB86FC`;
 
-const { data, pending } = useLazyFetch(`/api/token/${token.value}`);
+const { data } = await useFetch(`/api/token/${token.value}`);
 
 function getChange(a, b) {
   const change = ((a - b) * 100) / b;

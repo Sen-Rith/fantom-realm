@@ -6,6 +6,11 @@ export default defineNuxtConfig({
     "mdi/css/materialdesignicons.min.css",
     "~/assets/global.css",
   ],
+  loading: {
+    color: "primary",
+    height: "15px",
+    throttle: 0,
+  },
   build: {
     transpile: ["vuetify"],
   },

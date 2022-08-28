@@ -19,9 +19,22 @@
     ></v-text-field>
     <v-list v-if="tokens.length > 0">
       <v-list-subheader
-        >Results <v-icon size="x-small">mdi-magnify</v-icon></v-list-subheader
+        >Results
+        <v-tooltip location="bottom">
+          <template v-slot:activator="{ props }">
+            <v-icon v-bind="props" size="x-small">
+              mdi-information-outline
+            </v-icon>
+          </template>
+          <span
+            >We only show tokens that have enough liquidity to make trades</span
+          >
+        </v-tooltip></v-list-subheader
       >
-      <v-list-item v-for="token in tokens" :key="token.id" @click="navigateTo(`token/${token.id}`)"
+      <v-list-item
+        v-for="token in tokens"
+        :key="token.id"
+        @click="navigateTo(`token/${token.id}`)"
         ><template v-slot:prepend>
           <v-avatar class="my-2 mr-4">
             <v-img :src="getLogo(token.symbol)" width="40" height="40"
