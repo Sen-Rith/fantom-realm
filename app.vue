@@ -1,7 +1,5 @@
 <template>
-  <v-app>
-    <NuxtLayout><NuxtLoadingIndicator /><NuxtPage /></NuxtLayout>
-  </v-app>
+  <v-app> <NuxtLoadingIndicator /><NuxtPage /> </v-app>
 </template>
 
 <script setup>

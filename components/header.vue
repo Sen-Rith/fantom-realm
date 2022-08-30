@@ -73,7 +73,6 @@
         icon="mdi-weather-night"
       ></v-btn>
     </v-row>
-    <slot />
   </v-container>
 </template>
 
