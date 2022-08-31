@@ -34,7 +34,7 @@
       <v-list-item
         v-for="token in tokens"
         :key="token.id"
-        @click="navigateTo(`token/${token.id}`)"
+        @click="navigateTo(`/token/${token.id}`)"
         ><template v-slot:prepend>
           <v-avatar class="my-2 mr-4">
             <v-img :src="getLogo(token.symbol)" width="40" height="40"
