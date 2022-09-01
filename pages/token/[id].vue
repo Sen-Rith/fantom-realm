@@ -323,7 +323,7 @@ useHead({
     },
     {
       name: "og:image",
-      content: "/logo.png",
+      content: "https://fantom-realm.com/logo.png",
     },
   ],
   link: [{ rel: "icon", type: "image/x-icon", href: "/logo.png" }],
