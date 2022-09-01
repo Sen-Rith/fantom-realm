@@ -103,22 +103,58 @@ export const GET_TOKEN = gql`
         priceUSD
         dailyTxns
       }
-      pairQuote(first: 10, orderBy: volumeUSD, orderDirection: desc) {
-        reserveUSD
-        token0 {
-          id
-          name
-          symbol
-        }
-        token1 {
-          id
-          name
-          symbol
-        }
-        pairHourData(first: 24, orderBy: hourStartUnix, orderDirection: desc) {
-          hourlyVolumeUSD
-        }
+    }
+  }
+`;
+
+export const GET_TOKEN0_PAIRS = gql`
+  query TokenPair0($id: String!, $date: Int!) {
+    pairDayDatas(
+      first: 10
+      orderBy: dailyVolumeUSD
+      orderDirection: desc
+      where: { token0: $id, date: $date }
+    ) {
+      date
+      token0 {
+        id
+        name
+        symbol
       }
+      token1 {
+        id
+        name
+        symbol
+      }
+      dailyVolumeUSD
+      dailyTxns
+      reserveUSD
+    }
+  }
+`;
+
+export const GET_TOKEN1_PAIRS = gql`
+  query TokenPair1($id: String!, $date: Int!) {
+    pairDayDatas(
+      first: 10
+      orderBy: dailyVolumeUSD
+      orderDirection: desc
+      where: { token1: $id, date: $date }
+    ) {
+      date
+      token0 {
+        id
+        name
+        symbol
+      }
+      token1 {
+        id
+        name
+        symbol
+      }
+      dailyVolumeUSD
+      dailyTxns
+      reserveUSD
     }
   }
 `;

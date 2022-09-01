@@ -33,4 +33,20 @@ export type TokenQueryVariables = SchemaTypes.Exact<{
 }>;
 
 
-export type TokenQuery = { __typename?: 'Query', token?: { __typename?: 'Token', id: string, name: string, symbol: string, tokenDayData: Array<{ __typename?: 'TokenDayData', date: number, totalLiquidityUSD: any, dailyVolumeUSD: any, priceUSD: any, dailyTxns: any }>, pairQuote: Array<{ __typename?: 'Pair', reserveUSD: any, token0: { __typename?: 'Token', id: string, name: string, symbol: string }, token1: { __typename?: 'Token', id: string, name: string, symbol: string }, pairHourData: Array<{ __typename?: 'PairHourData', hourlyVolumeUSD: any }> }> } | null };
+export type TokenQuery = { __typename?: 'Query', token?: { __typename?: 'Token', id: string, name: string, symbol: string, tokenDayData: Array<{ __typename?: 'TokenDayData', date: number, totalLiquidityUSD: any, dailyVolumeUSD: any, priceUSD: any, dailyTxns: any }> } | null };
+
+export type TokenPair0QueryVariables = SchemaTypes.Exact<{
+  id: SchemaTypes.Scalars['String'];
+  date: SchemaTypes.Scalars['Int'];
+}>;
+
+
+export type TokenPair0Query = { __typename?: 'Query', pairDayDatas: Array<{ __typename?: 'PairDayData', date: number, dailyVolumeUSD: any, dailyTxns: any, reserveUSD: any, token0: { __typename?: 'Token', id: string, name: string, symbol: string }, token1: { __typename?: 'Token', id: string, name: string, symbol: string } }> };
+
+export type TokenPair1QueryVariables = SchemaTypes.Exact<{
+  id: SchemaTypes.Scalars['String'];
+  date: SchemaTypes.Scalars['Int'];
+}>;
+
+
+export type TokenPair1Query = { __typename?: 'Query', pairDayDatas: Array<{ __typename?: 'PairDayData', date: number, dailyVolumeUSD: any, dailyTxns: any, reserveUSD: any, token0: { __typename?: 'Token', id: string, name: string, symbol: string }, token1: { __typename?: 'Token', id: string, name: string, symbol: string } }> };

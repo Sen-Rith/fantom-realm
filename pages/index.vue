@@ -96,23 +96,24 @@
                 </tr>
               </thead>
               <tbody>
-                <tr
-                  v-for="item in topTokens"
-                  :key="item.name"
-                  @click="navigateTo(`/token/${item.id}`)"
-                >
+                <tr v-for="item in topTokens" :key="item.name">
                   <td>
-                    <v-avatar class="my-2 mr-4">
-                      <v-img :src="getLogo(item.symbol)" width="40" height="40"
-                        ><template v-slot:placeholder>
-                          <div
-                            class="d-flex align-center justify-center fill-height text-h4"
-                          >
-                            🤔
-                          </div>
-                        </template></v-img
-                      > </v-avatar
-                    >{{ item.name }}
+                    <a :href="'/token/' + item.id">
+                      <v-avatar class="my-2 mr-4">
+                        <v-img
+                          :src="getLogo(item.symbol)"
+                          width="40"
+                          height="40"
+                          ><template v-slot:placeholder>
+                            <div
+                              class="d-flex align-center justify-center fill-height text-h4"
+                            >
+                              🤔
+                            </div>
+                          </template></v-img
+                        > </v-avatar
+                      >{{ item.name }}</a
+                    >
                   </td>
                   <td
                     v-if="$vuetify.display.mobile"
@@ -209,4 +210,27 @@ function getPriceChange(item) {
     ? `+${price.toLocaleString("en-US")}`
     : price.toLocaleString("en-US");
 }
+
+useHead({
+  title: "Fantom Realm",
+  meta: [
+    {
+      name: "description",
+      content: "Price chart of tokens on Fantom Opera Network",
+    },
+    {
+      name: "og:title",
+      content: "Fantom Realm",
+    },
+    {
+      name: "og:description",
+      content: "Price chart of tokens on Fantom Opera Network",
+    },
+    {
+      name: "og:image",
+      content: "/logo.png",
+    },
+  ],
+  link: [{ rel: "icon", type: "image/x-icon", href: "/logo.png" }],
+});
 </script>

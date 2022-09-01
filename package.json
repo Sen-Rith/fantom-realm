@@ -21,6 +21,7 @@
     "graphql-request": "^4.3.0",
     "lodash": "^4.17.21",
     "mdi": "^2.2.43",
+    "moment": "^2.29.4",
     "sass": "^1.54.4",
     "smartinterval": "^1.0.1",
     "vuetify": "^3.0.0-beta.8"

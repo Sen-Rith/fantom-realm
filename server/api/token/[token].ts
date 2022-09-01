@@ -1,13 +1,25 @@
-import { GET_TOKEN } from "~~/graphql/queries";
+import {
+  GET_TOKEN,
+  GET_TOKEN0_PAIRS,
+  GET_TOKEN1_PAIRS,
+} from "~~/graphql/queries";
 import { ref } from "vue";
-import { TokenQuery, TokenQueryVariables } from "~~/generated/operations";
+import {
+  TokenPair0Query,
+  TokenPair0QueryVariables,
+  TokenPair1Query,
+  TokenPair1QueryVariables,
+  TokenQuery,
+  TokenQueryVariables,
+} from "~~/generated/operations";
 import { spiritswapClient, spookyswapClient } from "~~/server/graphql-client";
-import * as lodash from "lodash";
 import { Token, TokenDayData } from "~~/generated/schema";
+import moment from "moment";
 
 async function getToken(id: string) {
   try {
     const token = ref<Volume>();
+    const date = moment.utc().startOf("day").unix();
     const spookyswapToken = await spookyswapClient.request<
       TokenQuery,
       TokenQueryVariables
@@ -20,6 +32,23 @@ async function getToken(id: string) {
     >(GET_TOKEN, {
       id,
     });
+    const spookyswapTokenPair0 = await spookyswapClient.request<
+      TokenPair0Query,
+      TokenPair0QueryVariables
+    >(GET_TOKEN0_PAIRS, { id, date });
+    const spookyswapTokenPair1 = await spookyswapClient.request<
+      TokenPair1Query,
+      TokenPair1QueryVariables
+    >(GET_TOKEN1_PAIRS, { id, date });
+    const spiritswapTokenPair0 = await spiritswapClient.request<
+      TokenPair0Query,
+      TokenPair0QueryVariables
+    >(GET_TOKEN0_PAIRS, { id, date });
+    const spiritswapTokenPair1 = await spiritswapClient.request<
+      TokenPair1Query,
+      TokenPair1QueryVariables
+    >(GET_TOKEN1_PAIRS, { id, date });
+
     token.value = {
       ...spookyswapToken.token,
       tokenDayData: [
@@ -55,40 +84,58 @@ async function getToken(id: string) {
         },
       ],
       pairQuote: [
-        ...spookyswapToken.token.pairQuote.map(
-          ({ pairHourData, reserveUSD, ...data }) => {
+        ...spookyswapTokenPair0.pairDayDatas.map(
+          ({ dailyVolumeUSD, reserveUSD, ...data }) => {
             return {
               ...data,
               reserveUSD: Number(reserveUSD),
-              volume: pairHourData.reduce((previousValue, currentValue) => {
-                return previousValue + Number(currentValue.hourlyVolumeUSD);
-              }, 0),
+              volume: Number(dailyVolumeUSD),
+            };
+          }
+        ),
+        ...spookyswapTokenPair1.pairDayDatas.map(
+          ({ dailyVolumeUSD, reserveUSD, ...data }) => {
+            return {
+              ...data,
+              reserveUSD: Number(reserveUSD),
+              volume: Number(dailyVolumeUSD),
             };
           }
         ),
       ],
     };
-    spiritswapToken.token.pairQuote.map(
-      ({ pairHourData, reserveUSD, ...data }) => {
+    spiritswapTokenPair0.pairDayDatas.map(
+      ({ dailyVolumeUSD, reserveUSD, ...data }) => {
         const pair = token.value.pairQuote.findIndex(
           (i) =>
             i.token0.id === data.token0.id && i.token1.id === data.token1.id
         );
-        if (pair) {
-          token.value.pairQuote[0].reserveUSD += Number(reserveUSD);
-          token.value.pairQuote[0].volume = pairHourData.reduce(
-            (previousValue, currentValue) => {
-              return previousValue + Number(currentValue.hourlyVolumeUSD);
-            },
-            token.value.pairQuote[0].volume
-          );
+        if (pair >= 0) {
+          token.value.pairQuote[pair].reserveUSD += Number(reserveUSD);
+          token.value.pairQuote[pair].volume += Number(dailyVolumeUSD);
         } else {
           token.value.pairQuote.push({
             ...data,
             reserveUSD: Number(reserveUSD),
-            volume: pairHourData.reduce((previousValue, currentValue) => {
-              return previousValue + Number(currentValue.hourlyVolumeUSD);
-            }, 0),
+            volume: Number(dailyVolumeUSD),
+          });
+        }
+      }
+    );
+    spiritswapTokenPair1.pairDayDatas.map(
+      ({ dailyVolumeUSD, reserveUSD, ...data }) => {
+        const pair = token.value.pairQuote.findIndex(
+          (i) =>
+            i.token0.id === data.token0.id && i.token1.id === data.token1.id
+        );
+        if (pair >= 0) {
+          token.value.pairQuote[pair].reserveUSD += Number(reserveUSD);
+          token.value.pairQuote[pair].volume += Number(dailyVolumeUSD);
+        } else {
+          token.value.pairQuote.push({
+            ...data,
+            reserveUSD: Number(reserveUSD),
+            volume: Number(dailyVolumeUSD),
           });
         }
       }
@@ -103,7 +150,7 @@ async function getToken(id: string) {
     };
     return token.value;
   } catch {
-    //Ignore
+    return null;
   }
 }
 

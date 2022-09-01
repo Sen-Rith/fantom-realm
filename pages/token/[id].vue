@@ -196,8 +196,23 @@
       <v-row>
         <v-card width="100%" class="ma-3"
           ><v-card-item>
-            <v-card-title>Top 10 pair</v-card-title>
-            <v-card-subtitle>Top 10 pair with this token</v-card-subtitle>
+            <v-card-title
+              >Top 10 active pairs today
+              <v-tooltip location="bottom">
+                <template v-slot:activator="{ props }">
+                  <v-icon v-bind="props" size="x-small">
+                    mdi-information-outline
+                  </v-icon>
+                </template>
+                <span
+                  >Tokens are ranked by their daily volume from different
+                  exchanges like SpookySwap, SpiritSwap, etc.</span
+                >
+              </v-tooltip></v-card-title
+            >
+            <v-card-subtitle
+              >Top 10 pairs today with this token</v-card-subtitle
+            >
           </v-card-item>
           <v-table>
             <thead>
@@ -267,6 +282,7 @@
 
 <script setup lang="ts">
 import Header from "~~/components/header.vue";
+
 const route = useRoute();
 
 const token = ref(route.params.id);
@@ -274,6 +290,10 @@ const token = ref(route.params.id);
 const src = `https://kek.tools/t/${token.value}/chart?accent=BB86FC`;
 
 const { data } = await useFetch(`/api/token/${token.value}`);
+
+if (!data.value) {
+  throw createError({ statusCode: 404, statusMessage: 'Token Not Found' })
+}
 
 function getChange(a, b) {
   const change = ((a - b) * 100) / b;
@@ -285,4 +305,27 @@ function getChange(a, b) {
 function getLogo(symbol: string) {
   return `https://assets.spooky.fi/tokens/${symbol}.png`;
 }
+
+useHead({
+  title: "Fantom Realm",
+  meta: [
+    {
+      name: "description",
+      content: `Price chart of ${data.value.name} on Fantom Opera Network`,
+    },
+    {
+      name: "og:title",
+      content: data.value.name,
+    },
+    {
+      name: "og:description",
+      content: `Price chart of ${data.value.name} on Fantom Opera Network`,
+    },
+    {
+      name: "og:image",
+      content: "/logo.png",
+    },
+  ],
+  link: [{ rel: "icon", type: "image/x-icon", href: "/logo.png" }],
+});
 </script>
