@@ -315,7 +315,7 @@ useHead({
     },
     {
       name: "og:title",
-      content: data.value.name,
+      content: `Fantom Realm - ${data.value.name}`,
     },
     {
       name: "og:description",
