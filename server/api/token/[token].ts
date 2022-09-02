@@ -50,7 +50,6 @@ async function getToken(id: string) {
         TokenPair0QueryVariables
       >(GET_TOKEN0_PAIRS, { id, date });
     } catch {
-      console.log("spookyswapTokenPair0");
       //Ignore
     }
 
@@ -60,7 +59,6 @@ async function getToken(id: string) {
         TokenPair1QueryVariables
       >(GET_TOKEN1_PAIRS, { id, date });
     } catch {
-      console.log("spookyswapTokenPair1");
       //Ignore
     }
 
@@ -70,7 +68,6 @@ async function getToken(id: string) {
         TokenPair0QueryVariables
       >(GET_TOKEN0_PAIRS, { id, date });
     } catch {
-      console.log("spiritswapTokenPair0");
       //Ignore
     }
 
@@ -80,7 +77,6 @@ async function getToken(id: string) {
         TokenPair1QueryVariables
       >(GET_TOKEN1_PAIRS, { id, date });
     } catch {
-      console.log("spiritswapTokenPair1");
       //Ignore
     }
 
@@ -184,8 +180,7 @@ async function getToken(id: string) {
       pairQuote: token.value.pairQuote.slice(0, 10),
     };
     return token.value;
-  } catch(err) {
-    console.log(err.message)
+  } catch {
     return null;
   }
 }
