@@ -12,7 +12,12 @@ import {
   TokenQuery,
   TokenQueryVariables,
 } from "~~/generated/operations";
-import { spiritswapClient, spookyswapClient } from "~~/server/graphql-client";
+import {
+  spiritswapClient,
+  spiritswapPairClient,
+  spookyswapClient,
+  spookyswapPairClient,
+} from "~~/server/graphql-client";
 import { Token, TokenDayData } from "~~/generated/schema";
 import moment from "moment";
 
@@ -20,6 +25,7 @@ async function getToken(id: string) {
   try {
     const token = ref<Volume>();
     const date = moment.utc().startOf("day").unix();
+
     const spookyswapToken = await spookyswapClient.request<
       TokenQuery,
       TokenQueryVariables
@@ -32,22 +38,51 @@ async function getToken(id: string) {
     >(GET_TOKEN, {
       id,
     });
-    const spookyswapTokenPair0 = await spookyswapClient.request<
-      TokenPair0Query,
-      TokenPair0QueryVariables
-    >(GET_TOKEN0_PAIRS, { id, date });
-    const spookyswapTokenPair1 = await spookyswapClient.request<
-      TokenPair1Query,
-      TokenPair1QueryVariables
-    >(GET_TOKEN1_PAIRS, { id, date });
-    const spiritswapTokenPair0 = await spiritswapClient.request<
-      TokenPair0Query,
-      TokenPair0QueryVariables
-    >(GET_TOKEN0_PAIRS, { id, date });
-    const spiritswapTokenPair1 = await spiritswapClient.request<
-      TokenPair1Query,
-      TokenPair1QueryVariables
-    >(GET_TOKEN1_PAIRS, { id, date });
+
+    let spookyswapTokenPair0: TokenPair0Query = { pairDayDatas: [] };
+    let spookyswapTokenPair1: TokenPair1Query = { pairDayDatas: [] };
+    let spiritswapTokenPair0: TokenPair0Query = { pairDayDatas: [] };
+    let spiritswapTokenPair1: TokenPair1Query = { pairDayDatas: [] };
+
+    try {
+      spookyswapTokenPair0 = await spookyswapPairClient.request<
+        TokenPair0Query,
+        TokenPair0QueryVariables
+      >(GET_TOKEN0_PAIRS, { id, date });
+    } catch {
+      console.log("spookyswapTokenPair0");
+      //Ignore
+    }
+
+    try {
+      spookyswapTokenPair1 = await spookyswapPairClient.request<
+        TokenPair1Query,
+        TokenPair1QueryVariables
+      >(GET_TOKEN1_PAIRS, { id, date });
+    } catch {
+      console.log("spookyswapTokenPair1");
+      //Ignore
+    }
+
+    try {
+      spiritswapTokenPair0 = await spiritswapPairClient.request<
+        TokenPair0Query,
+        TokenPair0QueryVariables
+      >(GET_TOKEN0_PAIRS, { id, date });
+    } catch {
+      console.log("spiritswapTokenPair0");
+      //Ignore
+    }
+
+    try {
+      spiritswapTokenPair1 = await spiritswapPairClient.request<
+        TokenPair1Query,
+        TokenPair1QueryVariables
+      >(GET_TOKEN1_PAIRS, { id, date });
+    } catch {
+      console.log("spiritswapTokenPair1");
+      //Ignore
+    }
 
     token.value = {
       ...spookyswapToken.token,
@@ -149,7 +184,8 @@ async function getToken(id: string) {
       pairQuote: token.value.pairQuote.slice(0, 10),
     };
     return token.value;
-  } catch {
+  } catch(err) {
+    console.log(err.message)
     return null;
   }
 }
