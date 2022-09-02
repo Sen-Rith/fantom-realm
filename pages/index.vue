@@ -160,8 +160,9 @@
           cols="2"
           class="d-flex justify-center align-center"
           ><iframe
-            data-aa="2065700"
-            src="//ad.a-ads.com/2065700?size=160x600"
+            data-aa="2074413"
+            loading="lazy"
+            src="//ad.a-ads.com/2074413?size=160x600"
             style="
               width: 160px;
               height: 600px;

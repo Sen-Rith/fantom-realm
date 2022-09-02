@@ -180,8 +180,9 @@
           cols="2"
           class="d-flex justify-center align-center"
           ><iframe
-            data-aa="2065700"
-            src="//ad.a-ads.com/2065700?size=160x600"
+            data-aa="2074413"
+            loading="lazy"
+            src="//ad.a-ads.com/2074413?size=160x600"
             style="
               width: 160px;
               height: 600px;
@@ -292,7 +293,7 @@ const src = `https://kek.tools/t/${token.value}/chart?accent=BB86FC`;
 const { data } = await useFetch(`/api/token/${token.value}`);
 
 if (!data.value) {
-  throw createError({ statusCode: 404, statusMessage: 'Token Not Found' })
+  throw createError({ statusCode: 404, statusMessage: "Token Not Found" });
 }
 
 function getChange(a, b) {
