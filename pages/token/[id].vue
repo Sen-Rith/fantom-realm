@@ -40,7 +40,7 @@
             src="//ad.a-ads.com/2065700?size=160x600"
             style="
               width: 160px;
-              height: 700px;
+              height: 600px;
               border: 0px;
               padding: 0;
               overflow: hidden;
