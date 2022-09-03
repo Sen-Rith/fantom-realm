@@ -83,36 +83,97 @@ async function getToken(id: string) {
     token.value = {
       ...spookyswapToken.token,
       tokenDayData: [
-        {
-          date: spookyswapToken.token.tokenDayData[0].date,
-          totalLiquidityUSD:
-            Number(spookyswapToken.token.tokenDayData[0].totalLiquidityUSD) +
-            Number(spiritswapToken.token.tokenDayData[0].totalLiquidityUSD),
-          dailyVolumeUSD:
-            Number(spookyswapToken.token.tokenDayData[0].dailyVolumeUSD) +
-            Number(spiritswapToken.token.tokenDayData[0].dailyVolumeUSD),
-          priceUSD:
-            Number(spookyswapToken.token.tokenDayData[0].priceUSD) +
-            Number(spiritswapToken.token.tokenDayData[0].priceUSD),
-          dailyTxns:
-            Number(spookyswapToken.token.tokenDayData[0].dailyTxns) +
-            Number(spiritswapToken.token.tokenDayData[0].dailyTxns),
-        },
-        {
-          date: spookyswapToken.token.tokenDayData[1].date,
-          totalLiquidityUSD:
-            Number(spookyswapToken.token.tokenDayData[1].totalLiquidityUSD) +
-            Number(spiritswapToken.token.tokenDayData[1].totalLiquidityUSD),
-          dailyVolumeUSD:
-            Number(spookyswapToken.token.tokenDayData[1].dailyVolumeUSD) +
-            Number(spiritswapToken.token.tokenDayData[1].dailyVolumeUSD),
-          priceUSD:
-            Number(spookyswapToken.token.tokenDayData[1].priceUSD) +
-            Number(spiritswapToken.token.tokenDayData[1].priceUSD),
-          dailyTxns:
-            Number(spookyswapToken.token.tokenDayData[1].dailyTxns) +
-            Number(spiritswapToken.token.tokenDayData[1].dailyTxns),
-        },
+        spookyswapToken.token && spiritswapToken.token
+          ? {
+              date: spookyswapToken.token.tokenDayData[0].date,
+              totalLiquidityUSD:
+                Number(
+                  spookyswapToken.token.tokenDayData[0].totalLiquidityUSD
+                ) +
+                Number(spiritswapToken.token.tokenDayData[0].totalLiquidityUSD),
+              dailyVolumeUSD:
+                Number(spookyswapToken.token.tokenDayData[0].dailyVolumeUSD) +
+                Number(spiritswapToken.token.tokenDayData[0].dailyVolumeUSD),
+              priceUSD:
+                Number(spookyswapToken.token.tokenDayData[0].priceUSD) +
+                Number(spiritswapToken.token.tokenDayData[0].priceUSD),
+              dailyTxns:
+                Number(spookyswapToken.token.tokenDayData[0].dailyTxns) +
+                Number(spiritswapToken.token.tokenDayData[0].dailyTxns),
+            }
+          : spookyswapToken.token
+          ? {
+              date: spookyswapToken.token.tokenDayData[0].date,
+              totalLiquidityUSD: Number(
+                spookyswapToken.token.tokenDayData[0].totalLiquidityUSD
+              ),
+              dailyVolumeUSD: Number(
+                spookyswapToken.token.tokenDayData[0].dailyVolumeUSD
+              ),
+              priceUSD: Number(spookyswapToken.token.tokenDayData[0].priceUSD),
+              dailyTxns: Number(
+                spookyswapToken.token.tokenDayData[0].dailyTxns
+              ),
+            }
+          : {
+              date: spiritswapToken.token.tokenDayData[0].date,
+              totalLiquidityUSD: Number(
+                spiritswapToken.token.tokenDayData[0].totalLiquidityUSD
+              ),
+              dailyVolumeUSD: Number(
+                spiritswapToken.token.tokenDayData[0].dailyVolumeUSD
+              ),
+              priceUSD: Number(spiritswapToken.token.tokenDayData[0].priceUSD),
+              dailyTxns: Number(
+                spiritswapToken.token.tokenDayData[0].dailyTxns
+              ),
+            },
+
+        spookyswapToken.token && spiritswapToken.token
+          ? {
+              date: spookyswapToken.token.tokenDayData[1].date,
+              totalLiquidityUSD:
+                Number(
+                  spookyswapToken.token.tokenDayData[1].totalLiquidityUSD
+                ) +
+                Number(spiritswapToken.token.tokenDayData[1].totalLiquidityUSD),
+              dailyVolumeUSD:
+                Number(spookyswapToken.token.tokenDayData[1].dailyVolumeUSD) +
+                Number(spiritswapToken.token.tokenDayData[1].dailyVolumeUSD),
+              priceUSD:
+                Number(spookyswapToken.token.tokenDayData[1].priceUSD) +
+                Number(spiritswapToken.token.tokenDayData[1].priceUSD),
+              dailyTxns:
+                Number(spookyswapToken.token.tokenDayData[1].dailyTxns) +
+                Number(spiritswapToken.token.tokenDayData[1].dailyTxns),
+            }
+          : spookyswapToken.token
+          ? {
+              date: spookyswapToken.token.tokenDayData[1].date,
+              totalLiquidityUSD: Number(
+                spookyswapToken.token.tokenDayData[1].totalLiquidityUSD
+              ),
+              dailyVolumeUSD: Number(
+                spookyswapToken.token.tokenDayData[1].dailyVolumeUSD
+              ),
+              priceUSD: Number(spookyswapToken.token.tokenDayData[1].priceUSD),
+              dailyTxns: Number(
+                spookyswapToken.token.tokenDayData[1].dailyTxns
+              ),
+            }
+          : {
+              date: spiritswapToken.token.tokenDayData[0].date,
+              totalLiquidityUSD: Number(
+                spiritswapToken.token.tokenDayData[0].totalLiquidityUSD
+              ),
+              dailyVolumeUSD: Number(
+                spiritswapToken.token.tokenDayData[0].dailyVolumeUSD
+              ),
+              priceUSD: Number(spiritswapToken.token.tokenDayData[0].priceUSD),
+              dailyTxns: Number(
+                spiritswapToken.token.tokenDayData[0].dailyTxns
+              ),
+            },
       ],
       pairQuote: [
         ...spookyswapTokenPair0.pairDayDatas.map(
@@ -180,7 +241,8 @@ async function getToken(id: string) {
       pairQuote: token.value.pairQuote.slice(0, 10),
     };
     return token.value;
-  } catch {
+  } catch (err) {
+    console.log(err.message);
     return null;
   }
 }

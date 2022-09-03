@@ -158,3 +158,27 @@ export const GET_TOKEN1_PAIRS = gql`
     }
   }
 `;
+
+export const GET_PAIRS = gql`
+  query TopPairs($date: Int) {
+    pairDayDatas(
+      first: 10
+      orderBy: dailyVolumeUSD
+      orderDirection: desc
+      where: { date: $date }
+    ) {
+      token0 {
+        id
+        name
+        symbol
+      }
+      token1 {
+        id
+        name
+        symbol
+      }
+      reserveUSD
+      dailyVolumeUSD
+    }
+  }
+`;

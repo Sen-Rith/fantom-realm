@@ -59,7 +59,7 @@
             </v-card-item>
             <Search />
           </v-card>
-          <v-card
+          <v-card class="mb-5"
             ><v-card-item>
               <v-card-title
                 >Top 10 active tokens today
@@ -154,6 +154,75 @@
               </tbody>
             </v-table>
           </v-card>
+          <v-card>
+            <v-card-item>
+              <v-card-title
+                >Top 10 active pairs today
+                <v-tooltip location="bottom">
+                  <template v-slot:activator="{ props }">
+                    <v-icon v-bind="props" size="x-small">
+                      mdi-information-outline
+                    </v-icon>
+                  </template>
+                  <span
+                    >Tokens are ranked by their daily volume from different
+                    exchanges like SpookySwap, SpiritSwap, etc.</span
+                  >
+                </v-tooltip></v-card-title
+              >
+              <v-card-subtitle
+                >Top 10 pairs on Fantom Opera Network</v-card-subtitle
+              >
+            </v-card-item>
+            <v-table>
+              <thead>
+                <tr>
+                  <th class="text-left">Name</th>
+                  <th class="text-left">Liquidity</th>
+                  <th class="text-left">Volume (24hrs)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(item, index) in topPairs" :key="index">
+                  <td>
+                    <v-avatar class="my-2">
+                      <v-img
+                        :src="getLogo(item.token0.symbol)"
+                        width="40"
+                        height="40"
+                        ><template v-slot:placeholder>
+                          <div
+                            class="d-flex align-center justify-center fill-height text-h4"
+                          >
+                            🤔
+                          </div>
+                        </template></v-img
+                      > </v-avatar
+                    ><v-avatar start class="mr-8">
+                      <v-img
+                        :src="getLogo(item.token1.symbol)"
+                        width="40"
+                        height="40"
+                        ><template v-slot:placeholder>
+                          <div
+                            class="d-flex align-center justify-center fill-height text-h4"
+                          >
+                            🤔
+                          </div>
+                        </template></v-img
+                      > </v-avatar
+                    >{{ item.token0.symbol }} - {{ item.token1.symbol }}
+                  </td>
+                  <td>
+                    $ {{ Number(item.reserveUSD).toLocaleString("en-US") }}
+                  </td>
+                  <td>
+                    $ {{ Number(item.dailyVolumeUSD).toLocaleString("en-US") }}
+                  </td>
+                </tr>
+              </tbody>
+            </v-table>
+          </v-card>
         </v-col>
         <v-col
           v-if="!$vuetify.display.mobile"
@@ -197,7 +266,9 @@
 <script setup lang="ts">
 import Search from "~~/components/search.vue";
 import Header from "~~/components/header.vue";
+
 const topTokens = (await useFetch("/api/topTokens")).data;
+const topPairs = (await useFetch("/api/topPairs")).data;
 
 function getLogo(symbol: string) {
   return `https://assets.spooky.fi/tokens/${symbol}.png`;

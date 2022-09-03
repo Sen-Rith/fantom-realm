@@ -9,6 +9,7 @@ const topTokens = ref([]);
 async function getTopTokens() {
   try {
     let tokens = [];
+
     const spookyswapTokens = await spookyswapClient.request<
       TokensQuery,
       TokensQueryVariables
@@ -35,6 +36,7 @@ async function getTopTokens() {
         },
       },
     });
+
     spookyswapTokens.tokens.forEach((token) => {
       const spiritswapToken = spiritswapTokens.tokens.find(
         (t) => t.id === token.id
@@ -87,6 +89,7 @@ async function getTopTokens() {
         });
       }
     });
+
     spiritswapTokens.tokens.forEach((token) => {
       const spiritswapToken = tokens.find((t) => t.id === token.id);
       if (spiritswapToken) return;
@@ -108,6 +111,7 @@ async function getTopTokens() {
         ],
       });
     });
+    
     tokens = tokens.sort(
       (a, b) =>
         b.tokenDayData[0].dailyVolumeUSD - a.tokenDayData[0].dailyVolumeUSD

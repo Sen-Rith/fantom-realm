@@ -50,3 +50,10 @@ export type TokenPair1QueryVariables = SchemaTypes.Exact<{
 
 
 export type TokenPair1Query = { __typename?: 'Query', pairDayDatas: Array<{ __typename?: 'PairDayData', date: number, dailyVolumeUSD: any, dailyTxns: any, reserveUSD: any, token0: { __typename?: 'Token', id: string, name: string, symbol: string }, token1: { __typename?: 'Token', id: string, name: string, symbol: string } }> };
+
+export type TopPairsQueryVariables = SchemaTypes.Exact<{
+  date?: SchemaTypes.InputMaybe<SchemaTypes.Scalars['Int']>;
+}>;
+
+
+export type TopPairsQuery = { __typename?: 'Query', pairDayDatas: Array<{ __typename?: 'PairDayData', reserveUSD: any, dailyVolumeUSD: any, token0: { __typename?: 'Token', id: string, name: string, symbol: string }, token1: { __typename?: 'Token', id: string, name: string, symbol: string } }> };
